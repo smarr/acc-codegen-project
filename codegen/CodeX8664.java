@@ -61,26 +61,16 @@ class CodeX8664 extends Code {
     public void emitMoveRegister(int targetReg, int sourceReg) {
         assembly.append("mov ").append(registerName(targetReg)).append(", ").append(registerName(sourceReg)).append("\n");
 
-        byte modRM = (byte) (0xC0 | ((targetReg & 0x7) << 3) | (sourceReg & 0x7));
+        byte rex    = (byte) (0x48
+                        | (sourceReg >= 8 ? 0x04 : 0x00)   // REX.R
+                        | (targetReg >= 8 ? 0x01 : 0x00));  // REX.B
+        byte modRM  = (byte) (0xC0
+                        | ((sourceReg & 0x7) << 3)
+                        |  (targetReg & 0x7));
 
-        if (targetReg >= 8 || sourceReg >= 8) {
-            emit((byte) 0x41);        // REX.B
-        }
-        emit((byte) 0x89);            // opcode
-        emit(modRM);                  // ModRM
-
-
-
-    //         byte rex    = (byte) (0x48
-    //                     | (sourceReg >= 8 ? 0x04 : 0x00)   // REX.R
-    //                     | (targetReg >= 8 ? 0x01 : 0x00));  // REX.B
-    // byte modRM  = (byte) (0xC0
-    //                     | ((sourceReg & 0x7) << 3)
-    //                     |  (targetReg & 0x7));
-
-    // emit(rex);
-    // emit((byte) 0x89);   // opcode: MOV r/m64, r64
-    // emit(modRM);
+        emit(rex);
+        emit((byte) 0x89);   // opcode: MOV r/m64, r64
+        emit(modRM);
     }
 
     public void emitMoveRegisterFromMemory(int targetReg, int baseReg, int displacement) {
