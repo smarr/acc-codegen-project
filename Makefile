@@ -4,7 +4,11 @@ PROJECT_ROOT := $(MAKEFILE_DIR)
 # list of source files
 JAVA_SRC := codegen/Parser.java \
 	codegen/Scanner.java \
-	codegen/SimpleLang.java
+	codegen/SimpleLang.java \
+	codegen/Code.java \
+	codegen/CodeX8664.java \
+	codegen/CodeAarch64.java \
+	codegen/ExampleHelloAarch64.java
 
 CLASS_FILES := $(patsubst %.java,bin/%.class,$(JAVA_SRC))
 
@@ -17,5 +21,5 @@ codegen/Parser.java: codegen/SimpleLang.ATG codegen/Parser.frame codegen/Scanner
 bin:
 	mkdir -p bin
 
-bin/codegen/SimpleLang.class bin/codegen/Parser.class bin/codegen/Scanner.class: $(JAVA_SRC) bin
+$(CLASS_FILES): $(JAVA_SRC) bin
 	javac -d bin $(JAVA_SRC)
