@@ -15,6 +15,7 @@ jobs:
       - name: Build and test
         run: |
           make
+          ./run.sh tests/test.sl
           ./run-example-codegen.sh
           cc codegen/launcher.c
           ./a.out hello-x86_64.bin
@@ -31,6 +32,7 @@ jobs:
       - name: Build and test
         run: |
           make
+          ./run.sh tests/test.sl
           ./run-example-codegen.sh
           cc codegen/launcher.c
           ./a.out hello-aarch64.bin
