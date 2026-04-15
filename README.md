@@ -11,6 +11,17 @@ project option 1 of the Advanced Compiler Construction module.
 
  - tests: example programs of the SimpleLanguage
 
+### Scripts
+
+The following scripts are intended as illustration and are tested on macOS (ARM64) and Ubuntu (x86-64).
+
+ - `./assembly.sh <filename.asm>` converts the textual assembler into machine code that can be used by launcher.c
+
+ - `./disasm.sh <filename.bin>` disassembles a plain binary file
+
+ - `./run.sh <filename.sl>` runs the parser on a Simple Language program to check its syntax
+
+ - `./run-example-codegen.sh` runs the Hello World example code generator and produces a .bin and .asm file as output
 
 ### Useful Commands
 
