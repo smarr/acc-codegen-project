@@ -1,6 +1,8 @@
 package codegen;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 abstract class Code {
     private final byte[] code;
@@ -34,15 +36,24 @@ abstract class Code {
                 (byte) ((instr >> 24) & 0xFF));
     }
 
-    public void save(String filename) {
-        // open filename for writing and write the code byte array to it
-        try (FileOutputStream fos = new FileOutputStream(filename)) {
+    public void save(String binFileName, String asmFileName) {
+        System.out.println("Generated binary code into " + binFileName + ":");
+        try (FileOutputStream fos = new FileOutputStream(binFileName)) {
             fos.write(code, 0, pos);
-        } catch (java.io.IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        System.out.println("Generated assembly code into " + filename + ":");
-        System.out.println(assembly.toString());
+        String asm = assembly.toString();
+
+        System.out.println("Generated assembly program into " + asmFileName + ":");
+        try (PrintWriter pw = new PrintWriter(asmFileName)) {
+            pw.println(asm);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Generated Assembly:");
+        System.out.println(asm);
     }
 }

@@ -10,4 +10,11 @@ else
   exit 1
 fi
 
-gobjdump -D -b binary -m ${MARCH} "$@"
+# check whether gobjdump is on the path
+if command -v gobjdump &> /dev/null; then
+  OBJDUMP=gobjdump
+else
+  OBJDUMP=objdump
+fi
+
+exec ${OBJDUMP} -D -b binary -m ${MARCH} "$@"

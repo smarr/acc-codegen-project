@@ -55,6 +55,6 @@ public class ExampleHelloX8664 {
         // ret
         code.emitReturn();
 
-        code.save("hello-x86_64.bin");
+        code.save("hello-x86_64.bin", "hello-x86_64.asm");
     }
 }

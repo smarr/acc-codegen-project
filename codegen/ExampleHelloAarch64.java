@@ -40,6 +40,6 @@ public class ExampleHelloAarch64 {
 
         code.emitReturn();
 
-        code.save("hello-aarch64.bin");
+        code.save("hello-aarch64.bin", "hello-aarch64.asm");
     }
 }

@@ -19,6 +19,10 @@ jobs:
           ./run-example-codegen.sh
           cc codegen/launcher.c
           ./a.out hello-x86_64.bin
+          rm hello-x86_64.bin
+          
+          ./assemble.sh hello-x86_64.asm
+          ./a.out hello-x86_64.bin
 
   build-arm-macos:
     runs-on: macos-latest
@@ -35,4 +39,8 @@ jobs:
           ./run.sh tests/test.sl
           ./run-example-codegen.sh
           cc codegen/launcher.c
+          ./a.out hello-aarch64.bin
+          rm hello-aarch64.bin
+          
+          ./assemble.sh hello-aarch64.asm
           ./a.out hello-aarch64.bin
